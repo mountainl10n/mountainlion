@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "lie": "^3.1.0",
     "pegjs": "^0.10.0"
   }
 }
