@@ -1,0 +1,8 @@
+hi=hi
+hey = HAYO
+space\ here=SPAAACE
+hello=Hello
+world=world
+greeting={_hello}, {_world}!
+vars = {var1}, {var3}, {var2}!
+arrayvar = {0} + {1}

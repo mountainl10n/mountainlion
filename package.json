@@ -2,5 +2,25 @@
   "dependencies": {
     "lie": "^3.1.0",
     "pegjs": "^0.10.0"
-  }
+  },
+  "name": "mountainlion",
+  "version": "0.1.0",
+  "description": "A modular L10n library",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node_modules/.bin/pegjs langfile.pegjs",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mountainl10n/mountainlion.git"
+  },
+  "author": "vpzomtrrfrt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mountainl10n/mountainlion/issues"
+  },
+  "homepage": "https://github.com/mountainl10n/mountainlion#readme"
 }

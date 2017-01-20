@@ -12,15 +12,19 @@ module.exports.SyntaxError = parser.SyntaxError;
 
 module.exports.load = function(loader, value) {
 	try {
-		return require('mountainlion-loader-'+loader)(value)
+		if(typeof loader == "string") {
+			return this.load(require('mountainlion-loader-'+loader), value);
+		}
+		return loader(value)
+		.then(parser.parse)
 		.then(createReplFunc);
 	} catch(e) {
-		return Promise.reject("No such loader");
+		return Promise.reject(e);
 	}
 };
 
 function createReplFunc(obj) {
-	var _ = function(x) {
+	var _ = function(x, vars) {
 		if(x in obj) {
 			var tr = "";
 			for(var i = 0; i < obj[x].length; i++) {
@@ -29,7 +33,20 @@ function createReplFunc(obj) {
 					tr += part.value;
 				}
 				else if(part.type == "ref") {
-					tr += _(part.value);
+					tr += _(part.value, vars);
+				}
+				else if(part.type == "var") {
+					if(typeof vars == "object") {
+						if(part.value in vars) {
+							tr += vars[part.value];
+						}
+						else {
+							tr += "{"+part.value+"}";
+						}
+					}
+					else {
+						tr += vars;
+					}
 				}
 				else {
 					throw "No such part type: "+part.type;

@@ -28,8 +28,9 @@ valuebit = textbit / include
 innerinclude = (
 	ref:(
 		"_(" ref:key ")" {return ref;}
-		/ key
+		/ "_" ref:key {return ref;}
 	) { return {type: "ref", value: ref}; }
+	/ vr:key {return {type: "var", value: vr}}
 )
 
 include = "{" ws rt:innerinclude ws "}" { return rt; }
