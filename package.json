@@ -1,12 +1,11 @@
 {
-  "dependencies": {
+  "devDependencies": {
     "pegjs": "^0.10.0"
   },
   "name": "mountainlion",
   "version": "2.1.0",
   "description": "A modular L10n library",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node_modules/.bin/pegjs langfile.pegjs",
