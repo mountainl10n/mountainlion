@@ -1,5 +1,4 @@
 var parser = require('./langfile');
-var Promise = require('lie');
 
 var last_;
 createReplFunc({});
@@ -10,16 +9,17 @@ module.exports = function() {
 
 module.exports.SyntaxError = parser.SyntaxError;
 
-module.exports.load = function(loader, value) {
+module.exports.load = function(loader, value, callback) {
 	try {
 		if(typeof loader == "string") {
-			return this.load(require('mountainlion-loader-'+loader), value);
+			this.load(require('mountainlion-loader-'+loader), value, callback);
+			return;
 		}
-		return loader(value)
-		.then(parser.parse)
-		.then(createReplFunc);
+		loader(value, function(err, content) {
+			callback(null, createReplFunc(parser.parse(content)));
+		});
 	} catch(e) {
-		return Promise.reject(e);
+		callback(e);
 	}
 };
 
