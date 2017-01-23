@@ -3,7 +3,7 @@
     "pegjs": "^0.10.0"
   },
   "name": "mountainlion",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A modular L10n library",
   "main": "index.js",
   "devDependencies": {},

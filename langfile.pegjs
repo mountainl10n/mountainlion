@@ -8,13 +8,15 @@ start = sections: section * {
 
 ws = [ \t\n\r]*
 
-keychar = [^= \t\n\r\\{}]
+keychar = [^= \t\n\r\\{}()]
 	/ "\\" seq:(
 		'='
 		/ "\\"
 		/ ' '
 		/ '{'
 		/ '}'
+		/ '('
+		/ ')'
 	) { return seq; }
 
 key = text: keychar * { return text.join(""); }
@@ -26,11 +28,11 @@ textbit = text:[^\n{}]+ { return {type: "text", value: text.join("")}; }
 valuebit = textbit / include
 
 innerinclude = (
-	ref:(
+	vr:key {return {type: "var", value: vr}}
+	/ ref:(
 		"_(" ref:key ")" {return ref;}
 		/ "_" ref:key {return ref;}
 	) { return {type: "ref", value: ref}; }
-	/ vr:key {return {type: "var", value: vr}}
 )
 
 include = "{" ws rt:innerinclude ws "}" { return rt; }
